@@ -1,0 +1,29 @@
+Question 1: By default are django signals executed synchronously or asynchronously? Please support your answer 
+with a code snippet that conclusively proves your stance. The code does not need to be elegant and production 
+ready, we just need to understand your logic. 
+Answer:  
+In Synchronous when a Client makes a request to the server he has to wait until he gets the response which 
+means synchronous call blocks the client until operation completes. 
+In Asynchronous when a Client makes a request to the server he does not need to wait until he g the 
+response which means asynchronous call doesn't blocks the client until operation completes. 
+• By default Django signals are synchronous — the caller waits until all receivers finish.
+
+////////////////
+
+Question 2: Do django signals run in the same thread as the caller? Please support your answer with a code snippet 
+that conclusively proves your stance. The code does not need to be elegant and production ready, we just need to 
+understand your logic. 
+Answer: 
+Django signals run in the same thread as the caller by default 
+when a signal is triggered  the receiver function executes in the same thread that initiated the action whether it is a 
+view, a management command, or the shell.
+
+/////////////////
+
+Question 3: By default do django signals run in the same database transaction as the caller? Please support your 
+answer with a code snippet that conclusively proves your stance. The code does not need to be elegant and 
+production ready, we just need to understand your logic. 
+Answer:  
+• Django signals are executed inside the same database transaction as the caller, if the caller is in a transaction. 
+• If the caller isn’t explicitly in an atomic block both the caller’s writes and the signal’s writes happen in the 
+same transaction for that save. it raise an exception after the signal runs both will roll back. 
